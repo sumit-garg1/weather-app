@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
 from datetime import datetime
-from PIL import Image, ImageTk
 from configparser import ConfigParser
 import requests
 url = 'https://api.openweathermap.org/data/2.5/weather?q={}&appid={}'
@@ -37,11 +36,6 @@ def search():
     weather = get_weather(city)
     if weather:
         location_lb['text'] = '{}, {}'.format(weather[0], weather[1])
-        image_path = 'weather_img/{}@2x.png'.format(weather[4])
-        image = Image.open(image_path)
-        photo = ImageTk.PhotoImage(image)
-        image_lb.config(image=photo)
-        image_lb.image = photo  # Keep a reference to the image to prevent it from being garbage collected
         tem_lb['text'] = '{:.2f}°C, {:.2f}°F'.format(weather[2], weather[3])
         weather_lb['text'] = weather[5]
         current_time = datetime.now().strftime('%H:%M:%S')
